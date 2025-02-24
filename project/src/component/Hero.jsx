@@ -1,7 +1,7 @@
 import About from './About';
 import Footer from './Footer';
- import LeadingAi from './LeadingAi';
-import { Link,useNavigate } from "react-router-dom";
+import LeadingAi from './LeadingAi';
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { FiSearch, FiMenu, FiX } from "react-icons/fi";
 import robot from "../Assets/robot.jpg";
@@ -37,19 +37,16 @@ const Hero = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-8 text-gray-700">
-        <Link to="/about" className="hover:text-blue-700">
-         
+          <Link to="/about" className="hover:text-blue-700">
             About the Tool
-            </Link>
-            <Link to="/about" className="hover:text-blue-700">
-         
-         Contact US
-         </Link>
-        
+          </Link>
+          <Link to="/about" className="hover:text-blue-700">
+            Contact US
+          </Link>
         </div>
 
-        <button  onClick={()=>navigate("/Agent")}className="hidden md:block bg-blue-700 text-white px-5 py-2 rounded-lg hover:bg-blue-800 transition">
-        Try DarkSonic →
+        <button onClick={() => navigate("/Agent")} className="hidden md:block bg-blue-700 text-white px-5 py-2 rounded-lg hover:bg-blue-800 transition">
+          Try DarkSonic →
         </button>
 
         {/* Mobile Menu Button */}
@@ -69,19 +66,15 @@ const Hero = () => {
             : "opacity-0 -translate-y-5 scale-95 hidden"
         }`}
       >
-         <Link to="/about" className="hover:text-blue-700">
-         
-         About the Tool
-         </Link>
-         <Link to="/about" className="hover:text-blue-700">
-      
-      Contact US
-      </Link>
-     
-         <button  onClick={()=>navigate("/Agent")}className="hidden md:block bg-blue-700 text-white px-5 py-2 rounded-lg hover:bg-blue-800 transition">
-         Try DarkSonic→
+        <Link to="/about" className="hover:text-blue-700">
+          About the Tool
+        </Link>
+        <Link to="/about" className="hover:text-blue-700">
+          Contact US
+        </Link>
+        <button onClick={() => navigate("/Agent")} className="bg-blue-700 text-white px-5 py-2 rounded-lg hover:bg-blue-800 transition">
+          Try DarkSonic →
         </button>
-
       </div>
 
       {/* ✨ Hero Section */}
@@ -89,14 +82,14 @@ const Hero = () => {
         {/* Left Content */}
         <div className="max-w-2xl text-center md:text-left">
           <h2 className="text-3xl md:text-5xl font-bold leading-tight text-gray-900">
-            Conversational AI Assistant for Local Knowledge Base of Bank
-            Industry
+            AI-Powered Blockchain Assistant for the Sonic Network
           </h2>
           <p className="mt-4 text-gray-600">
-          DarkSonic develops AI-based applications that help the
-            employees/stakeholders of an organization find the answer to their
-            queries from locally available documents. This can work as a SaaS or
-            on-prem tool.
+            DarkSonic is an AI-driven assistant designed to help users interact with the Sonic 
+            network seamlessly. It enables wallet operations, transactions, and smart contract 
+            deployment while integrating with Pyth Network for price feeds and KyberSwap for 
+            token swaps. Built with TypeScript and Bun, DarkSonic aims to provide multi-chain 
+            support and advanced DeFi automation.
           </p>
 
           {/* 🔎 Search Bar */}
@@ -113,18 +106,21 @@ const Hero = () => {
         {/* 🤖 Right Image */}
         <div className="w-full md:w-1/2 flex justify-center mt-8 md:mt-0">
           <img
-      
             src={robot}
             alt="AI Robot"
             className="max-w-[200px] sm:max-w-[250px] md:max-w-[300px] lg:max-w-[350px]"
           />
         </div>
       </section>
-      <LeadingAi />
-    <About />
-    <Footer />
-    </div>
-   
+
+      {/* Reduced Space Between Components */}
+      <div className="space-y-1"> {/* Adjust the space-y-* value to control the spacing */}
+        <LeadingAi />
+      </div>
+        <About />
+        <Footer />
+      </div>
+    
   );
 };
 
