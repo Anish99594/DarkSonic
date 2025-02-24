@@ -1,84 +1,61 @@
 import "dotenv/config";
 import OpenAI from "openai";
-import readline from "readline";
+import express, { Request, Response } from "express";
+import cors from "cors";
 import { createAssistant } from "./openai/createAssistant.js";
 import { createThread } from "./openai/createThread.js";
 import { createRun } from "./openai/createRun.js";
 import { performRun } from "./openai/performRuns.js";
 
-import type { Thread } from "openai/resources/beta/threads/threads";
-import type { Assistant } from "openai/resources/beta/assistants";
+const app = express();
+const port = 3001;
+
+app.use(express.json());
+app.use(cors());
 
 const client = new OpenAI();
+let assistant: OpenAI.Beta.Assistant;
+let thread: OpenAI.Beta.Thread;
 
-// Create interface for reading from command line
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
+// Initialize Assistant and Thread once
+async function initialize() {
+  assistant = await createAssistant(client);
+  thread = await createThread(client);
+  console.log("Assistant and Thread initialized.");
+}
+
+initialize();
+
+// Define request body type
+interface ChatRequestBody {
+  message: string;
+}
+
+// API Route to handle chat messages
+app.post("/chat", async (req: Request<{}, {}, ChatRequestBody>, res: Response) => {
+  const { message } = req.body;
+  if (!message) return res.status(400).json({ error: "Message is required" });
+
+  try {
+    // Add the user's message to the thread
+    await client.beta.threads.messages.create(thread.id, {
+      role: "user",
+      content: message,
+    });
+
+    // Create and perform the run
+    const run = await createRun(client, thread, assistant.id);
+    const result = await performRun(run, client, thread);
+
+    res.json({
+      response: result?.type === "text" ? result.text.value : "No response",
+    });
+  } catch (error) {
+    console.error("Error in chat:", error instanceof Error ? error.message : "Unknown error");
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
-// Type-safe promise-based question function
-const question = (query: string): Promise<string> => {
-  return new Promise((resolve) => rl.question(query, resolve));
-};
-
-async function chat(thread: Thread, assistant: Assistant): Promise<void> {
-  while (true) {
-    // Get user input
-    const userInput = await question("\nYou: ");
-
-    // Allow user to exit
-    if (userInput.toLowerCase() === "exit") {
-      rl.close();
-      break;
-    }
-
-    try {
-      // Add the user's message to the thread
-      await client.beta.threads.messages.create(thread.id, {
-        role: "user",
-        content: userInput,
-      });
-
-      // Create and perform the run
-      const run = await createRun(client, thread, assistant.id);
-      const result = await performRun(run, client, thread);
-
-      if (result?.type === "text") {
-        console.log("\nAlt:", result.text.value);
-      }
-    } catch (error) {
-      console.error(
-        "Error during chat:",
-        error instanceof Error ? error.message : "Unknown error"
-      );
-      rl.close();
-      break;
-    }
-  }
-}
-
-async function main(): Promise<void> {
-  try {
-    const assistant = await createAssistant(client);
-    const thread = await createThread(client);
-
-    console.log('Chat started! Type "exit" to end the conversation.');
-    await chat(thread, assistant);
-  } catch (error) {
-    console.error(
-      "Error in main:",
-      error instanceof Error ? error.message : "Unknown error"
-    );
-    rl.close();
-    process.exit(1);
-  }
-}
-
-main().catch((error) => {
-  console.error(
-    "Unhandled error:",
-    error instanceof Error ? error.message : "Unknown error"
-  );
-  process.exit(1);
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
 });
