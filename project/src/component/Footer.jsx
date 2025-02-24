@@ -71,7 +71,7 @@ function Footer() {
           {/* Contact */}
           <div>
             <h3 className="text-white text-lg font-semibold">Contact Us</h3>
-            <p className="text-gray-500 mt-2">📧 support@darksonic.ai</p>
+            <p className="text-gray-500 mt-2">📧 kunalgola9930@gmail.com</p>
             
           </div>
         </div>

@@ -3,7 +3,7 @@ import project from '../Assets/project.png';
 
 function About() {
   return (
-    <div className="min-h-screen bg-white px-6 md:px-10 py-16" style={{ marginBottom: '-200px' }}>
+    <div className="min-h-screen bg-white px-6 md:px-10 py-16" style={{ marginBottom: '-250px' }}>
       {/* Heading & Description */}
       <div className="max-w-3xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
@@ -26,15 +26,14 @@ function About() {
       <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {/* AI-Powered Blockchain Assistant */}
         <div className="bg-blue-50 p-6 rounded-2xl shadow-md text-center">
-          <h3 className="text-lg md:text-xl font-bold text-blue-700">
-            AI-Powered Blockchain Assistant ↗
-          </h3>
-          <img
-            src={project}
-            alt="AI Blockchain Assistant"
-            className="mt-4 rounded-xl shadow-sm w-full"
-          />
-        </div>
+  <h3 className="text-lg md:text-xl font-bold text-blue-700">
+    AI-Powered Blockchain Assistant ↗
+  </h3>
+  <p className="mt-4 text-gray-700">
+    DarkSonic simplifies blockchain interactions with AI-driven wallet management, transactions, and smart contract deployment.
+  </p>
+</div>
+
 
         {/* Transaction & Smart Contract Management */}
         <div className="bg-purple-100 p-6 rounded-2xl shadow-md text-center">
@@ -51,15 +50,14 @@ function About() {
 
         {/* Fast & Secure Operations */}
         <div className="bg-yellow-100 p-6 rounded-2xl shadow-md flex flex-col items-center">
-          <h3 className="text-lg md:text-xl font-bold text-gray-900">
-            Fast & Secure Operations
-          </h3>
-          <img
-            src={rocket}
-            alt="Rocket"
-            className="mt-6 w-24 md:w-32"
-          />
-        </div>
+  <h3 className="text-lg md:text-xl font-bold text-gray-900">
+    Fast & Secure Operations
+  </h3>
+  <p className="mt-4 text-gray-700 text-center">
+    Experience lightning-fast transactions with top-tier security, ensuring seamless blockchain interactions.
+  </p>
+</div>
+
       </div>
     </div>
   );

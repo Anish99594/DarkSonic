@@ -17,11 +17,13 @@ const Hero = () => {
       {bannerVisible && (
         <div className="bg-blue-700 text-white text-center py-2 flex items-center justify-center relative">
           <span>
-            🔥 This banner can inform the visitors about something important.{" "}
-            <a href="#" className="underline">
-              Learn more
-            </a>
-          </span>
+  🔥 DarkSonic revolutionizes blockchain interactions with AI-driven automation.  
+  Secure, fast, and efficient for transactions, wallets, and smart contracts.{" "}
+  <a href="#" className="underline">
+    Learn more
+  </a>
+</span>
+
           <button
             className="absolute right-5 text-white text-xl"
             onClick={() => setBannerVisible(false)}
