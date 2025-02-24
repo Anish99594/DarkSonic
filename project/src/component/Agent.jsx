@@ -159,7 +159,7 @@ function Agent() {
     setIsStreaming(true);
 
     try {
-      const response = await axios.post("http://localhost:3001/chat", { message: userMessage });
+      const response = await axios.post("https://darksonic-1.onrender.com/chat", { message: userMessage });
       setMessages(prev => [...prev, { id: crypto.randomUUID(), content: response.data.response, type: 'ai' }]);
     } catch (error) {
       console.error('Error sending message:', error);
